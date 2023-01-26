@@ -1,0 +1,40 @@
+import React from 'react'
+import { Link } from 'react-router-dom' 
+function Categories()
+{        
+    return(
+    <div className='flex gap-2 mx-20 mt-24'>
+        <div className='w-[25%] flex flex-col gap-2 '>
+            <div className='relative'>
+             <img className='w-full object-cover h-64' src="https://images.pexels.com/photos/818992/pexels-photo-818992.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="categories" />  
+             <button className='absolute top-[50%] hover:text-white bg-white left-[50%] text-black hover:bg-blue-600 px-2'><Link to="products/1" >Sale</Link> </button>    
+            </div>
+            <div className='relative'>
+             <img className='w-full object-cover h-64' src="https://images.pexels.com/photos/2036646/pexels-photo-2036646.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="categories" />    
+             <button className='absolute top-[50%] hover:text-white  bg-white left-[50%] text-black hover:bg-blue-600 px-2'><Link to="products/1" >Women</Link> </button>       
+            </div>
+        </div>
+        <div className='w-[25%] relative '>
+             <img className='object-cover h-[32.5rem]' src="https://images.pexels.com/photos/1813947/pexels-photo-1813947.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="categories" />   
+             <button className='absolute top-[50%] hover:text-white bg-white left-[50%] text-black hover:bg-blue-600 px-2'><Link to="products/1" >New season</Link> </button>        
+        </div>
+        <div className='w-[50%] flex flex-col gap-2  '>
+            <div className='flex gap-2'>  
+            <div className='relative w-[50%]'>
+                 <button className='absolute top-[50%] hover:text-white bg-white left-[50%] text-black hover:bg-blue-600 px-2'><Link to="products/1" >Men</Link> </button>      
+                 <img className='w-full object-cover h-64' src="https://images.pexels.com/photos/1192609/pexels-photo-1192609.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="categories" />    
+            </div>  
+            <div className='relative w-[50%]'>
+                <img className='w-full object-cover h-64 '  src="https://images.pexels.com/photos/2703202/pexels-photo-2703202.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="categories" />  
+                 <button className='absolute top-[50%] hover:text-white bg-white left-[50%] text-black hover:bg-blue-600 px-2'><Link to="products/1" >Accessories</Link> </button>     
+            </div>
+            </div>
+            <div className='relative'>
+                 <button className='absolute top-[50%] hover:text-white bg-white left-[50%] text-black hover:bg-blue-600 px-2'><Link to="products/1" >Shoes</Link> </button>   
+                <img className='w-[100%] object-cover  h-64' src="https://images.pexels.com/photos/1159670/pexels-photo-1159670.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="categories" />    
+            </div>
+        </div>
+    </div>
+    )
+}
+export default Categories
