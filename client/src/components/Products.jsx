@@ -3,14 +3,14 @@ import { useParams } from 'react-router-dom'
 import List from './Lists';
 function Productsdisplay()
 {
-    const id=parseInt(useParams().id);
+    const id=useParams().id;
+    console.log(id)
     const [maxprice,setmaxprice]=useState(1000)
     const [sortby,setsortby]=useState(null)
-    console.log(sortby)
-    // console.log(maxprice)
+    
     return(
-        <div className="flex m-10 gap-5">
-          <div  className='flex w-[25%] h-[100vh]  sticky top-[2px] flex-col gap-3'>
+        <div className="flex m-10 gap-5 h-[80vw]">
+          <div  className='flex w-[25%] h-full  flex-col gap-3'>
             <div className=''>
                  <h1 className='font-bold'>Product Catogories</h1>
                  <div className='flex gap-1'>
@@ -49,7 +49,7 @@ function Productsdisplay()
         </div> 
         <div className='w-[75%] h-[40vh] flex flex-col gap-10 '>
            <img className=' rounded-md  transform translate duration-500 object-cover w-full h-full' src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="banner" />
-        <List id={id} sort={sortby} maxprice={maxprice } />
+           <List  category={id} sort={sortby} maxprice={maxprice } />
         </div>
      </div>
     )

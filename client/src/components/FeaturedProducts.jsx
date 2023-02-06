@@ -1,7 +1,9 @@
-import React from 'react' 
+import React, { useEffect, useState } from 'react' 
 import Card from "./Card"
+import axios from "axios"
 function FeaturedProducts({title})
 {
+    const [Products,setProducts]=useState([]);
     const data=[
         {
             id:1,
@@ -13,7 +15,7 @@ function FeaturedProducts({title})
             discountprice:999,
         },
         {
-            id:1,
+            id:2,
             img:"https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&w=1600",
             img2:"https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600",
             title:"Coat",
@@ -22,7 +24,7 @@ function FeaturedProducts({title})
             discountprice:999,
         },
         {
-            id:1,
+            id:3,
             img:"https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&w=1600",
               img2:"https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600",
             title:"Skirt",
@@ -31,7 +33,7 @@ function FeaturedProducts({title})
             discountprice:999,
         },
         {
-            id:1,
+            id:5,
             img:"https://images.pexels.com/photos/1972115/pexels-photo-1972115.jpeg?auto=compress&cs=tinysrgb&w=1600",
               img2:"https://images.pexels.com/photos/1163194/pexels-photo-1163194.jpeg?auto=compress&cs=tinysrgb&w=1600",
             title:"Saree",
@@ -40,10 +42,26 @@ function FeaturedProducts({title})
             discountprice:999,
         }
     ]
+     
+    useEffect(() =>
+    {
+        (async function (){
+            const options={
+                method:"GET",
+                headers:{
+                    'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0OTEwOGQxNjFlNWEwOTZjZWM3NCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NTY1ODUxOCwiZXhwIjoxNjc1OTE3NzE4fQ.3-Dv3Tpy-Dhf-3yvWNPu1t2IyeqbcXF2HGWi5bNavW8'
+                }
+            }
+            const res=await fetch("http://localhost:5000/api/products",options);
+            const data=await res.json();
+            setProducts(data)
+           
+        }());        
+    },[])
     return(
-    <div className=' mx-52 my-10 flex flex-col gap-10 sm:mx-10 md:mx-10'>
-        <div className='flex gap-[8rem]'>
-            <div className='w-[30%]'>
+    <div className=' mx-44 my-20 md:m-10 flex flex-col gap-1 sm:mx-10 md:mx-10'>
+        <div className='flex mx-10 justify-center gap-[4rem]'>
+            <div className='w-[30%] '>
                 <h1 className='text-2xl font-bold'>{title}</h1>
             </div>
             <div>
@@ -55,9 +73,9 @@ function FeaturedProducts({title})
                  </p>
             </div> 
         </div>
-        <div className='flex gap-4 px-16'>
+        <div className='flex flex-wrap gap-4 px-8'>
             {
-            data.map(item => (<Card item={item} />))
+            Products.map(item => (<Card key={item._id} item={item} />))
             } 
         </div>
     </div>

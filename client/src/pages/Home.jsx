@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar"
 import Slider from "../components/Slider"
 import FeaturedProducts  from "../components/FeaturedProducts"
 import Categories from "../components/Categories"
+import axios from "axios"
 function Home()
 {
     return(

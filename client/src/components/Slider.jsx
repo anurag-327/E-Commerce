@@ -5,7 +5,7 @@ import WestOutlinedIcon from '@mui/icons-material/WestOutlined';
 function Slider()
 {
     const [currslide,setcurrslide]= useState(0)
-    console.log(currslide)
+    // console.log(currslide)
     function prevslide()
     {
         

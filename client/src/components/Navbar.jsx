@@ -22,10 +22,10 @@ function Navbar()
         </div>    
       <div className=''>
         <ul className='flex gap-5 text-md'>
-            <li><Link to="/products/1">Women</Link></li>
-            <li><Link to="/products/1">Men</Link></li>
-            <li><Link to="/products/1">Kids</Link></li>
-            <li> <Link to="/products/1">Accessories</Link></li>
+            <li><Link to="/products/women">Women</Link></li>
+            <li><Link to="/products/men">Men</Link></li>
+            <li><Link to="/products/kids">Kids</Link></li>
+            <li> <Link to="/products/accessories">Accessories</Link></li>
         </ul>
        </div>
        </div>

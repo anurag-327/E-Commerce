@@ -1,8 +1,9 @@
 import React from 'react' 
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 function Cart()
 {
+    const [Cart,setCart]=useState(null)
     const data=[
         {
             id:1,
@@ -21,8 +22,33 @@ function Cart()
             discountprice:999,
         }
     ]
+    useEffect(()=>
+    {
+        (async function()
+        {
+            let options2={
+                method:"GET",
+                headers:
+                {
+                    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0OTEwOGQxNjFlNWEwOTZjZWM3NCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NTE4NDUwNCwiZXhwIjoxNjc1NDQzNzA0fQ.0W1FGUOBs6iPvrAO3JPSj2TqB_9p6fAHvmxgz7Tfp10",
+                    
+                }}
+               const rescart=await fetch(`http://localhost:5000/api/cart/find/63d949108d161e5a096cec74`,options2);
+               const datacart= await rescart.json();
+               if(rescart.status==200)
+               {
+                setCart(datacart)
+                //   console.log(datacart)
+               }
+               else
+               { 
+                setCart(null)
+               }
+        }())
+    })
+
     return(
-    <div className='absolute top-12 bg-white w-[23rem] p-6 gap-4  z-50 right-2 flex flex-col'>
+    <div className='absolute top-12 bg-white w-[23rem] p-6 gap-4  z-50 right-2 flex flex-col flex-wrap'>
         <div>
             <h1 className='font-bold text-lg'>Products In your cart</h1>
            
@@ -31,7 +57,7 @@ function Cart()
             {
                 data.map((item) =>
                 (
-                    <div className='flex gap-2 text-gray-600'>
+                    <div className='flex gap-2  text-gray-600'>
                         <div className='w-28'>
                             <img className='object-cover' src={item.img} alt="carticon" />
                         </div>
