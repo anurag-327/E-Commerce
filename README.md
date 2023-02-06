@@ -8,10 +8,10 @@
 ### Steps run code on your machine
    - Clone repo on your 
    - Start Backend Server
-         **cd api**
-         **npm i**
-         **npm run start**
+        - **cd api**
+        - **npm i**
+        - **npm run start**
    - start Frontend vite server
-         **cd client**
-         **npm run dev**
+        - **cd client**
+        - **npm run dev**
    - You are good to go      
