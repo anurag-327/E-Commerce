@@ -5,7 +5,7 @@ function Card({item})
     
     return(
         
-        <Link className='w-[23%] hover:scale-105  mt-20  transform translate duration-500  h-[20rem]' to={`/product/${item._id}`} >  
+        <Link className='w-[40%] hover:scale-105  mt-20  transform translate duration-500 ' to={`/product/${item._id}`} >  
         <div className=' border border-gray-100 shadow-lg  relative w-full h-full overflow-hidden rounded-lg '>
         {
                 item.isnew&& <h2 className='bg-gray-100 top-1 z-50 absolute rounded-sm px-1 border border-gray-500'>New Product</h2>

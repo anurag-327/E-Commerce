@@ -7,18 +7,24 @@ import Categories from "../components/Categories"
 import axios from "axios"
 import { Usercontext } from "../context/contextapi"
 import Banner from "../components/Banner"
+import Services from "../components/Services"
+import CardSlider from "../components/CardSlider"
+import Marqueedisplay from "../components/Marquee"
 function Home()
 {
     const {user,cart}=useContext(Usercontext)
-    console.log(user,cart)
+    // console.log(user,cart)
     return(
     <>
     <Navbar />
     <Banner />
-    <Slider />
+    <Services />
+    {/* <Slider /> */}
+    <CardSlider />
     <FeaturedProducts title="Featured Products" />
+    <Marqueedisplay />
     <Categories />
-    <FeaturedProducts title="Trending Products" />
+    {/* <FeaturedProducts title="Trending Products" /> */}
     <Footer />
     </>
     )
