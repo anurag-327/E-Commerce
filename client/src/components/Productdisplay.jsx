@@ -1,5 +1,5 @@
 import React from 'react' 
-import { useState,useEffect } from "react"
+import { useState,useEffect,useContext } from "react"
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import SearchIcon from '@mui/icons-material/Search';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -7,26 +7,32 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import BalanceOutlinedIcon from '@mui/icons-material/BalanceOutlined';
 import { useParams } from 'react-router-dom'
+import { Usercontext } from '../context/contextapi';
 function Productdisplay()
 {
+    const {user,cart,setCart}=useContext(Usercontext)
     const id=useParams().id;
     const [imageselected,setimageselected]=useState(0)
     const[unitselected,setunitselected]=useState(1)
     const [Product,setProduct]=useState([])
-    const [Cart,setCart]=useState({});
+   
     const images=[
         `${Product.img}`,
         `${Product.img2}`
     ]
     async function addtocart()
     {
-       
-        if(Cart!=null)
+        let val=cart.products;
+        val.push({"productid":`${id}`,"quantity":`${unitselected}`})
+        console.log(val)
+        console.log(cart)
+        if(cart!=[])
         {
+            console.log(cart._id)
             
-            let val=Cart.products;
-            val.push({"productid":`${Product._id}`,"quantity":`${unitselected}`})
-           
+            let val=cart.products;
+            console.log(val)
+            val.push({"productid":`${id}`,"quantity":`${unitselected}`})
             
             let options={
                 method:"PUT",
@@ -38,7 +44,7 @@ function Productdisplay()
                 body:JSON.stringify({ products: val})     
            }
             
-            const res=await fetch(`http://localhost:5000/api/cart/${Cart._id}`,options);
+            const res=await fetch(`http://localhost:5000/api/cart/${cart._id}`,options);
             const data= await res.json();
            
         }
@@ -77,28 +83,7 @@ function Productdisplay()
             }
             const res=await fetch(`http://localhost:5000/api/products/find/${id}`,options);
             const data=await res.json();
-            setProduct(data)
-            
-          let options2={
-            method:"GET",
-            headers:
-            {
-                "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0OTEwOGQxNjFlNWEwOTZjZWM3NCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NTY1ODUxOCwiZXhwIjoxNjc1OTE3NzE4fQ.3-Dv3Tpy-Dhf-3yvWNPu1t2IyeqbcXF2HGWi5bNavW8",
-                
-            }}
-           const rescart=await fetch(`http://localhost:5000/api/cart/find/63d949108d161e5a096cec74`,options2);
-           const datacart= await rescart.json();
-           if(rescart.status==200)
-           {
-            setCart(datacart)
-              
-           }
-           else
-           {
-            
-            setCart(null)
-           }
-              
+            setProduct(data)              
         }());        
     },[])
 

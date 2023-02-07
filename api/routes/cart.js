@@ -42,11 +42,15 @@ router.delete("/:id",VerifyTokenAndAuthorization, async (req,res) =>
 
      }
 })
-router.get("/find/:userId",VerifyTokenAndAdmin, async (req,res) =>
+router.get("/find/:userId",VerifyTokenAndAuthorization, async (req,res) =>
 {
      try{
-        const cart =await Cart.findOne({userId:req.params.userId}).populate({path:'products',populate:{path:'productid'}});
-        console.log(cart)
+        const cart =await Cart.findOne({userId:req.params.userId})
+        .populate("userId")
+        .populate("products.productid")
+        // .populate({path:'products',populate:{path:'productid'}})
+        .select("products");
+        console.log(cart.products)
         if(cart)
         res.status(200).json(cart);
         else
@@ -57,6 +61,7 @@ router.get("/find/:userId",VerifyTokenAndAdmin, async (req,res) =>
          res.status(500).json(err.message);
 
      }
+    // return res.status(401).json("jhh")
 })
 router.get("/",VerifyTokenAndAdmin,async (req,res) =>
 {
