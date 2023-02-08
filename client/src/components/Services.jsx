@@ -9,7 +9,7 @@ function Services()
 {
     return(
     <>
-    <div className='flex justify-between my-2/services  sm:gap-2 items-center  bg-gray-200 p-3'>
+    <div className='flex  shadow-md justify-between my-6 services   sm:gap-2 items-center  bg-gray-200 p-3'>
         <div className='flex gap-5 sm:gap-2  justify-center items-center'>
             <img className='w-[2vw] h-[2vw]' src={services1} alt="services" />
             <div>

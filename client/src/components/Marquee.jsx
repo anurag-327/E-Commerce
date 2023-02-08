@@ -12,7 +12,7 @@ function Marqueedisplay()
 {
     return(
     <>
-    <Marquee className='w-[90%]  m-auto flex gap-4'>
+    <Marquee className='w-[90%] m-auto  bg-gray-300 my-10 flex gap-4'>
         <img src={brand1}  className="mx-4 w-20" />
         <img src={brand2}  className="mx-4 w-20" />
         <img src={brand3}  className="mx-4 w-20" />

@@ -7,27 +7,83 @@ const {VerifyTokenAndAuthorization,VerifyTokenAndAdmin }=require("./VerifyToken"
 
 router.post("/",VerifyToken, async(req,res) =>
 {
-    try{
-        const newcart= new Cart(req.body);
-        const savedcart=await newcart.save();
-        res.status(200).json(savedcart);
-    }catch(err)
+    const temp= await Cart.findOne({userId:req.body.userId});
+    if(temp)
     {
-        res.status(500).json("Cannot add Cart")
+        // console.log("cartexists")
+        try{
+            const updatedcart= await Cart.findOneAndUpdate({"userId":req.body.userId},{
+                $set:req.body
+            },{new:true})
+            .populate({
+                path: 'products.productid',
+                model: 'Products',
+           })
+            res.status(200).json(updatedcart.products);
+        }catch(err)
+        {
+            console.log(err.message)
+            res.status(500).json(err.message)
+        }
     }
+    else{
+        console.log(req.body);
+        // console.log("cart does not exists")
+        try{
+            const newcart= new Cart(req.body);
+            const savedcart=(await newcart.save())
+            .populate({
+                path: 'products.productid',
+                model: 'Products',
+           })
+            res.status(200).json(savedcart.products);
+        }catch(err)
+        {
+            console.log("in catch",err)
+            res.status(500).json(err)
+        }
+    }
+    
 })
 
-router.put("/:id",VerifyTokenAndAuthorization ,async (req,res) =>
+router.put("/",VerifyToken,async (req,res) =>
 {
-   
+    console.log(req.body);
     try{
-        const updatedcart= await Cart.findByIdAndUpdate(req.params.id,{
+        
+        const updatedcart= await Cart.findOneAndUpdate({"userId":req.body.userId},{
             $set:req.body
         },{new:true})
-        res.status(200).json(updatedcart);
+        .populate({
+            path: 'products.productid',
+            model: 'Products',
+       })
+       
+       
+        // console.log(updatedcart)
+        res.status(200).json(updatedcart.products);
     }catch(err)
     {
         res.status(500).json(err.message)
+    }
+})
+router.delete("/updatecart",VerifyToken,async(req,res) =>
+{
+    console.log(req.body)
+    try{
+        
+        const s=await Cart.findOneAndUpdate(
+            { _id: req.body.cartId },
+            { products:{$pull:{ _id: req.body.pid } } },
+            { safe: true, multi: false }
+          );
+        //   console.log(s);
+          return res.status(200).json("cart Updated");
+    }catch(err)
+    {
+        console.log("in catch");
+        console.log(err.message);
+        return res.status(500).json(err.message);
     }
 })
 router.delete("/:id",VerifyTokenAndAuthorization, async (req,res) =>
@@ -46,13 +102,12 @@ router.get("/find/:userId",VerifyTokenAndAuthorization, async (req,res) =>
 {
      try{
         const cart =await Cart.findOne({userId:req.params.userId})
-        .populate("userId")
-        .populate("products.productid")
-        // .populate({path:'products',populate:{path:'productid'}})
-        .select("products");
-        console.log(cart.products)
+        .populate({
+            path: 'products.productid',
+            model: 'Products',
+        })
         if(cart)
-        res.status(200).json(cart);
+        res.status(200).json(cart.products);
         else
         res.status(400).json("No such Cart exists");
     }

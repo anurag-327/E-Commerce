@@ -26,13 +26,13 @@ function Login()
     // const {user,setUser} = useContext(UserContext);
     const user=JSON.parse(localStorage.getItem("userinfo"))
     // console.log(user)
-    if(user!==null)
+    if(user)
     navigate("/")
-    // useEffect(()=>
-    // {
-    //     if(user)
-    //     navigate("/chat")
-    // },[])
+    useEffect(()=>
+    {
+        if(user)
+        navigate("/")
+    },[])
     const [login,setlogin]=useState(true);
     const [error,seterror]=useState(false);
     const [errormsg,seterrormsg]=useState("Good to go");

@@ -35,8 +35,7 @@ export default function Userprovider({children})
            {
             setCart(datacart)   
            }
-          
-              
+                
         }()); 
 
 

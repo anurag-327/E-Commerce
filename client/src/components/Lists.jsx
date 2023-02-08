@@ -59,7 +59,7 @@ function List(props)
             console.log(data);
            
         }());        
-    },[Products])
+    },[])
 
     return(
         <div className='flex flex-wrap  align-center gap-4  px-2'>

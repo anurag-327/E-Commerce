@@ -1,4 +1,4 @@
-import React, { useState } from 'react' 
+import React, { useState,useContext, useEffect } from 'react' 
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import SearchIcon from '@mui/icons-material/Search';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -8,10 +8,16 @@ import Cart from './Cart';
 import { Link } from 'react-router-dom';
 import {ShoppingCart} from "phosphor-react"
 import {MagnifyingGlass} from "phosphor-react"
+import { Usercontext } from '../context/contextapi';
 import ViewWeekIcon from '@mui/icons-material/ViewWeek';
 function Navbar()
 {
+    const {cart,setCart}=useContext(Usercontext)
     const[opencart,setopencart]=useState(false)
+    useEffect(()=>
+    {
+
+    },[cart])
     return(
     <>
     <nav className=' w-full flex flex-col gap-1 p-2 justify-between align-center bg-gray-900 text-white shadow-md'>
@@ -39,10 +45,12 @@ function Navbar()
                     <span className='text-sm'>Returns</span>
                     <p className='font-semibold '>& Orders</p>
                 </div>
-                <div onClick={() => setopencart(!opencart)} className='relative'>
-                    <ShoppingCart size={50} color="#ffffff" weight="fill" />
-                    <div className='absolute top-2 left-5  '>
-                         <span className='font-bold text-black'>0</span>
+                <div  onClick={() => setopencart(!opencart)} className='relative'>
+                    <ShoppingCart className='cursor-pointer' size={50} color="#ffffff" weight="fill" />
+                    <div className='absolute top-2 left-5 cursor-pointer  '>
+                        {
+                         <span className='font-bold text-black'>{cart.length}</span>
+                        }
                     </div>
                 </div>
             </div>

@@ -1,9 +1,12 @@
 import React from 'react' 
-import { useState,useEffect } from 'react'
+import { useState,useEffect,useContext } from 'react'
+import { Usercontext } from '../context/contextapi';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { TrashSimple } from 'phosphor-react';
 function Cart()
 {
-    const [Cart,setCart]=useState(null)
+    const [total,setTotal]=useState(0)
+    const {user,cart,setCart}=useContext(Usercontext)
     const data=[
         {
             id:1,
@@ -22,55 +25,65 @@ function Cart()
             discountprice:999,
         }
     ]
-    // useEffect(()=>
-    // {
-    //     (async function()
-    //     {
-    //         let options2={
-    //             method:"GET",
-    //             headers:
-    //             {
-    //                 "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0OTEwOGQxNjFlNWEwOTZjZWM3NCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NTE4NDUwNCwiZXhwIjoxNjc1NDQzNzA0fQ.0W1FGUOBs6iPvrAO3JPSj2TqB_9p6fAHvmxgz7Tfp10",
-                    
-    //             }}
-    //            const rescart=await fetch(`http://localhost:5000/api/cart/find/63d949108d161e5a096cec74`,options2);
-    //            const datacart= await rescart.json();
-    //            if(rescart.status==200)
-    //            {
-    //             setCart(datacart)
-    //             //   console.log(datacart)
-    //            }
-    //            else
-    //            { 
-    //             setCart(null)
-    //            }
-    //     }())
-    // })
+   async function removefromcart(pid)
+   {
+        console.log(pid)
+        const x=cart.filter((item)=> item._id!==pid)
+        console.log(x);
+        
+        let options={
+            method:"PUT",
+            headers:
+            {
+                "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0OTEwOGQxNjFlNWEwOTZjZWM3NCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NTY1ODUxOCwiZXhwIjoxNjc1OTE3NzE4fQ.3-Dv3Tpy-Dhf-3yvWNPu1t2IyeqbcXF2HGWi5bNavW8",
+                "Content-type":"application/json"
+            },
+            body:JSON.stringify({  "userId":"63d949108d161e5a096cec74",
+            "products": x    
+       })     
+       }
+        const res=await fetch(`http://localhost:5000/api/cart/`,options);
+        const data= await res.json();
+        if(res.status===200)
+        {
+            setCart(x);  
+        }
+       console.log(data)
+    }
+    useEffect(()=>
+    {
+        var sum=0;
+        for(let i of cart)
+        {
+            sum=sum+(i.productid.price*i.quantity)  
+        }
+        setTotal(sum)
+        // console.log(cart.products)
+        // console.log(cart.products.reduce((acc,item) => acc+ parseInt(item.productid.price)))
+        // console.log(Number(item.productid.price), Number(item.quantity))
+    },[cart])
 
     return(
-    <div className='absolute top-[4.2rem] bg-white w-[23rem] p-6 gap-4  z-50 right-2 flex flex-col flex-wrap'>
+    <div className='absolute top-[4.2rem] right-5 text-black bg-white w-[380px] p-4 gap-4  z-50  flex flex-col flex-wrap'>
         <div>
-            <h1 className='font-bold text-lg'>Products In your cart</h1>
+            <h1 className='font-bold text-black text-center text-lg'>Products In your cart</h1>
            
         </div>
-        <div className='gap-2 flex flex-col'>
+        <div className='gap-4 flex flex-col'>
             {
-                data.map((item,index) =>
+                cart.map((item,index) =>
                 (
-                    <div className='flex gap-2  text-gray-600'>
-                        <div className='w-28'>
-                            <img className='object-cover' src={item.img} alt="carticon" />
+                    <div className='flex gap-2 border border-black p-2 text-gray-600'>
+                        <div className='w-[15%]'>
+                            <img className='object-cover' src={item.productid.img} alt="carticon" />
                         </div>
-                        <div className='flex flex-col gap-2 '>
-                            <h2 className='font-bold'>{item.title}</h2>
-                            <div className='flex'>
-                              <p>Lorem ipsum dolor sit amet consectetur, adipisicing 
-                            </p>
-                            <DeleteOutlineOutlinedIcon />
-
+                        <div className='flex flex-col gap-1 w-[85%] '>
+                            <h2 className='font-bold'>{item.productid.title}</h2>
+                            <div className='flex w-full justify-end items-end'>
+                              <TrashSimple onClick={ () => removefromcart(item._id)} size={32} color="#819c16" />
                             </div>
                                                                
-                            <h1 className='font-bold'>1*₹{item.discountprice}</h1>
+                            <h1 className='font-bold'>{item.quantity}*₹{item.productid.price}</h1>
                         </div>
                     </div>
             ))
@@ -78,7 +91,7 @@ function Cart()
             <div className='flex flex-col gap-3'>
                 <div className='flex justify-between font-bold'>
                 <h2>SUBTOTAL</h2>
-                <span>₹ 1998</span>
+                <span>₹ {total}</span>
                 </div>
                 <button className='bg-blue-500 text-white px-3 py-1 '>PROCEED TO CHECKOUT</button>
                  <h2 className='text-center  text-blue-500'>Reset cart</h2>

@@ -23,33 +23,37 @@ function Productdisplay()
     async function addtocart()
     {
         let val=cart.products;
-        val.push({"productid":`${id}`,"quantity":`${unitselected}`})
-        console.log(val)
-        console.log(cart)
-        if(cart!=[])
+        // console.log(val)
+        // console.log(cart)
+        
+        if(cart.length!=0)
         {
-            console.log(cart._id)
-            
-            let val=cart.products;
-            console.log(val)
-            val.push({"productid":`${id}`,"quantity":`${unitselected}`})
-            
-            let options={
-                method:"PUT",
-                headers:
+            if(!cart.some(item => item.productid._id===id))
+            {
+                let val=cart;
+                val.push({"productid":`${id}`,"quantity":`${unitselected}`})
+                let options={
+                    method:"PUT",
+                    headers:
+                    {
+                        "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0OTEwOGQxNjFlNWEwOTZjZWM3NCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NTY1ODUxOCwiZXhwIjoxNjc1OTE3NzE4fQ.3-Dv3Tpy-Dhf-3yvWNPu1t2IyeqbcXF2HGWi5bNavW8",
+                        "Content-type":"application/json"
+                    },
+                    body:JSON.stringify({  "userId":"63d949108d161e5a096cec74",
+                    "products": val    
+               })     
+               }
+                console.log(val)
+                const res=await fetch(`http://localhost:5000/api/cart`,options);
+                const data= await res.json();
+                if(res.ok && data)
                 {
-                    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0OTEwOGQxNjFlNWEwOTZjZWM3NCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NTY1ODUxOCwiZXhwIjoxNjc1OTE3NzE4fQ.3-Dv3Tpy-Dhf-3yvWNPu1t2IyeqbcXF2HGWi5bNavW8",
-                    "Content-type":"application/json"
-                },
-                body:JSON.stringify({ products: val})     
-           }
-            
-            const res=await fetch(`http://localhost:5000/api/cart/${cart._id}`,options);
-            const data= await res.json();
-           
+                    setCart(data)
+                }
+            }    
         }
         else{
-          
+            console.log("cart empty")
             let options={
                 method:"POST",
                 headers:
@@ -60,21 +64,29 @@ function Productdisplay()
                 body:JSON.stringify({  "userId":"63d949108d161e5a096cec74",
                 "products": [
                        {
-                          "productid":`${Product._id}`,
+                          "productid":`${id}`,
                            "quantity":`${unitselected}`
                        }
                    ]     
            })
             }
             const res=await fetch(`http://localhost:5000/api/cart`,options);
-
             const data= await res.json();
+            if(res.ok && data)
+            {
+                console.log(data);
+                setCart(data)
+            }
+            // console.log(data)
            
     }
     }
     useEffect(() =>
-    {
+    {  
+        
         (async function (){
+            console.log(cart.length)
+            
             const options={
                 method:"GET",
                 headers:{
@@ -83,6 +95,7 @@ function Productdisplay()
             }
             const res=await fetch(`http://localhost:5000/api/products/find/${id}`,options);
             const data=await res.json();
+            
             setProduct(data)              
         }());        
     },[])

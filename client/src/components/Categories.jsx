@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 function Categories()
 {        
     return(
-    <div className='flex gap-2 mx-20 mt-24'>
+    <div className='flex gap-2 mx-20 my-10 mt-24'>
         <div className='w-[25%] flex flex-col gap-2 '>
             <div className='relative'>
              <img className='w-full object-cover h-64' src="https://images.pexels.com/photos/818992/pexels-photo-818992.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="categories" />  
