@@ -52,9 +52,9 @@ router.post("/register",async (req,res) =>
         else
         {
             console.log(user)
-            const accesstoken= tokengenerator(user._id,user.isAdmin)
+            const token= tokengenerator(user._id,user.isAdmin)
             const {password, ...others}=user._doc;
-            res.status(201).json({...others,accesstoken});
+            res.status(201).json({...others,token});
 
         }
     }catch(err)

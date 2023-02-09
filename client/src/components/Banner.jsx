@@ -17,7 +17,7 @@ function Banner() {
                   <div className="absolute top-0 gap-2 p-4 left-2 flex flex-col">
                       <span className="font-semibold text-lg text-red-600 text-md sm:text-[3vw]">SUPERCHARGED FOR PROS</span>
                       <span className="font-bold text-[3.5vw] sm:text-[6vw] ">iPad S13+ Pro</span> 
-                      <span className=" text-md font-semibold">From ₹2500 to ₹ 10000</span> 
+                      <span className=" text-md font-semibold">From ₹45000 to ₹ 10000</span> 
                       <button className="w-32 p-1 rounded-lg bg-black text-white hover:bg-orange-200 hover:text-black">BUY NOW</button>
                   </div>   
                 </Link>
@@ -37,7 +37,7 @@ function Banner() {
                   <img className="rounded-md" src={minibanner1} alt="banner" />
                   <div className="absolute top-0 gap-1 p-4 left-0 flex flex-col">
                       <span className="font-semibold text-red-600 text-md sm:text-[3vw]">BEST SALE</span>
-                      <span className="font-bold text-lg sm:text-[3vw]">Laptops Max</span> 
+                      <span className="font-bold text-lg sm:text-[3vw]">Laptops </span> 
                       <span className="w-[60%] text-[1.2vw] sm:text-[2vw] font-semibold">From ₹25000 to ₹ 100000</span> 
                   </div>   
                 </Link>
@@ -45,7 +45,7 @@ function Banner() {
                   <img className="rounded-md" src={minibanner2} alt="banner" />
                   <div className="absolute top-0 gap-1 p-4 left-0 flex flex-col">
                       <span className="font-semibold text-red-600 text-md sm:text-[3vw]">NEW ARRIVAL</span>
-                      <span className="font-bold text-lg sm:text-[3vw]">Buy IPad Air</span> 
+                      <span className="font-bold text-lg sm:text-[3vw]">Buy Smartwatches</span> 
                       <span className="w-[60%] text-[1.2vw] sm:text-[2vw] font-semibold">From ₹25000 to ₹ 100000</span> 
                   </div>  
                 </Link>
@@ -55,7 +55,7 @@ function Banner() {
                   <img className="rounded-md" src={minibanner3} alt="banner" />
                   <div className="absolute top-0 gap-1 p-4 left-0 flex flex-col">
                       <span className="font-semibold text-red-600 text-md sm:text-[3vw]  ">UPTO 15% OFF</span>
-                      <span className="font-bold text-lg sm:text-[3vw]">Smartwatch 7</span> 
+                      <span className="font-bold text-lg sm:text-[3vw]">Buy IPad Air</span> 
                       <span className="w-[60%] text-[1.2vw] sm:text-[2vw] font-semibold">Shop latest brands styles and colours</span> 
                   </div>   
                 </Link>

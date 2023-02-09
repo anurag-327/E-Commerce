@@ -29,10 +29,10 @@ function CardSlider({slides,title})
 
     return(
         <>
-        <div className='w-[95%]   m-auto mt-5 mb-2 text-2xl font-bold'>
+        <div className='w-[95%] sm:w-[100%]   m-auto mt-5 mb-2 text-2xl font-bold'>
             <span className='ml-10'>{title}</span>
         </div>
-       <div className='w-[95%]    box-border m-auto  relative flex items-center justify-center '>
+       <div className='w-[95%] sm:w-[100%]    box-border m-auto  relative flex items-center justify-center '>
         <CaretLeft onClick={scrollleft} className=' cursor-pointer absolute left-0 bg-blue-100 rounded-full p-1' size={36} color="#000000"  />
         <div id={title}  className='  slider scroll-smooth w-full h-full  whitespace-nowrap overflow-x-auto scrollbar-hide'>
             {

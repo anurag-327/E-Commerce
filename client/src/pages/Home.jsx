@@ -29,6 +29,7 @@ import homedecor7 from "../assets/images/homedecor/homedecor7.jpg"
 import homedecor8 from "../assets/images/homedecor/homedecor8.jpg"
 function Home()
 {
+    // const {user,cart,setCart}=useContext(Usercontext)
     const slides1=[
         {
             id:1,
@@ -191,23 +192,28 @@ function Home()
         
     ]
 
-
     const {user,cart}=useContext(Usercontext)
+  useEffect(() =>
+  {
+  },[user])
     // console.log(user,cart)
     return(
     <>
-    <Navbar />
-    <Banner />
-    <Services />
-    <Marqueedisplay />
-    {/* <Slider /> */}
-    <CardSlider slides={slides1} title="Appliances" />
-    <CardSlider slides={slides3} title="Clothings"/>
-    <CardSlider slides={slides2} title="Home decoration"/>
-    <FeaturedProducts title="Clothings" />
-    <Services />
-    <Categories />
-    <Footer />
+    {
+        user!={}?(<><Navbar />
+        <Banner />
+        <Services />
+        <Marqueedisplay />
+        {/* <Slider /> */}
+        <Categories />
+        <CardSlider slides={slides1} title="Appliances" />
+        <CardSlider slides={slides3} title="Clothings"/>
+        <CardSlider slides={slides2} title="Home decoration"/>
+        <FeaturedProducts title="Clothings" />
+        <Services />
+        <Footer /></>):(<h1>Loading</h1>)
+    }
+    
     </>
     )
 }

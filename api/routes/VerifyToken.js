@@ -4,6 +4,7 @@ const jwt =require("jsonwebtoken");
 const VerifyToken =(req,res,next) =>
 {
     const authHeader= req.headers.token;
+    console.log("token",authHeader)
     if(authHeader)
     { 
        jwt.verify(authHeader, process.env.JWT_SEC,(err,user) =>

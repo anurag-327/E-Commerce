@@ -30,7 +30,7 @@ router.put("/:id",VerifyTokenAndAdmin ,async (req,res) =>
         res.status(500).json(err)
     }
 })
-router.delete("/:id",VerifyTokenAndAdmin, async (req,res) =>
+router.delete("/:id",VerifyToken, async (req,res) =>
 {
      try{
         await Product.findByIdAndDelete(req.params.id);
@@ -42,7 +42,7 @@ router.delete("/:id",VerifyTokenAndAdmin, async (req,res) =>
 
      }
 })
-router.get("/find/:id",VerifyTokenAndAdmin, async (req,res) =>
+router.get("/find/:id", async (req,res) =>
 {
      try{
         const product =await Product.findById(req.params.id);
@@ -57,7 +57,7 @@ router.get("/find/:id",VerifyTokenAndAdmin, async (req,res) =>
 
      }
 })
-router.get("/",VerifyTokenAndAdmin, async (req,res) =>
+router.get("/", async (req,res) =>
 {
     const qnew=req.query.new;
     const qcategories=req.query.category;
